@@ -93,11 +93,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     case R.id.radio_boarder:
 //                        newUser.setSex("Male");
                         break;
-
-                    case R.id.radio_hcm:
-//                        newUser.setSex("Female");
-                        break;
-                    case R.id.radio_warder:
+                    case R.id.radio_warden:
 //                        newUser.setSex("Ot");
                         break;
 
@@ -196,7 +192,7 @@ public class RegistrationActivity extends AppCompatActivity {
                         temp_layout_1.setVisibility(View.VISIBLE);
 
                     }
-                    else
+//                    else
                     {
 
                         temp_layout_2.setVisibility(View.VISIBLE);
@@ -204,7 +200,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     }
 
                 }
-                else
+//                else
                 {
                     TextView message=findViewById(R.id.email_not_verified_message);
                     message.setText("Invalid Email!");
@@ -259,77 +255,77 @@ public class RegistrationActivity extends AppCompatActivity {
         monthSpinner.setAdapter(monthSpinnerAdapter);
 
         daySpinner=(Spinner)findViewById(R.id.dob_d_input);
-        final MutableInt month_pos=new MutableInt();
-        final int days_in_month[]={31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-        yearSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                int selected_year=(Integer)parent.getItemAtPosition(position);
-//                newUser.setB_year(selected_year);
-                int prev_value;
-                if(isLeap(selected_year))
-                {
-                    prev_value=days_in_month[1];
-                    days_in_month[1]=29;
-                }
-                else
-                {
-                    prev_value=days_in_month[1];
-                    days_in_month[1]=28;
-                }
-                if(prev_value!=days_in_month[1] && month_pos.getValue()==1)
-                {
-                    int RANGE = days_in_month[month_pos.getValue()];
-                    Integer dates_list[] = new Integer[RANGE];
-                    for (int i = 0; i < RANGE; i++) {
-                        dates_list[i] = new Integer(i + 1);
-                    }
-                    ArrayAdapter<Integer> daySpinnerAdapter = new ArrayAdapter<Integer>(daySpinner.getContext(), R.layout.spinner_item, dates_list);
-                    daySpinner.setAdapter(daySpinnerAdapter);
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        monthSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                int RANGE=days_in_month[position];
-                month_pos.setValue(position);
-//                newUser.setB_month(position+1);
-                Integer dates_list[]=new Integer[RANGE];
-                for(int i=0; i<RANGE; i++)
-                {
-                    dates_list[i]=new Integer(i+1);
-                }
-                ArrayAdapter<Integer> daySpinnerAdapter=new ArrayAdapter<Integer>(daySpinner.getContext(), R.layout.spinner_item, dates_list);
-                daySpinner.setAdapter(daySpinnerAdapter);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        daySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                int selected_day=(Integer)adapterView.getItemAtPosition(i);
-//                newUser.setB_day(selected_day);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
+//        final MutableInt month_pos=new MutableInt();
+//        final int days_in_month[]={31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+//        yearSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                int selected_year=(Integer)parent.getItemAtPosition(position);
+////                newUser.setB_year(selected_year);
+//                int prev_value;
+//                if(isLeap(selected_year))
+//                {
+//                    prev_value=days_in_month[1];
+//                    days_in_month[1]=29;
+//                }
+//                else
+//                {
+//                    prev_value=days_in_month[1];
+//                    days_in_month[1]=28;
+//                }
+//                if(prev_value!=days_in_month[1] && month_pos.getValue()==1)
+//                {
+//                    int RANGE = days_in_month[month_pos.getValue()];
+//                    Integer dates_list[] = new Integer[RANGE];
+//                    for (int i = 0; i < RANGE; i++) {
+//                        dates_list[i] = new Integer(i + 1);
+//                    }
+//                    ArrayAdapter<Integer> daySpinnerAdapter = new ArrayAdapter<Integer>(daySpinner.getContext(), R.layout.spinner_item, dates_list);
+//                    daySpinner.setAdapter(daySpinnerAdapter);
+//                }
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
+//
+//        monthSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//
+//                int RANGE=days_in_month[position];
+//                month_pos.setValue(position);
+////                newUser.setB_month(position+1);
+//                Integer dates_list[]=new Integer[RANGE];
+//                for(int i=0; i<RANGE; i++)
+//                {
+//                    dates_list[i]=new Integer(i+1);
+//                }
+//                ArrayAdapter<Integer> daySpinnerAdapter=new ArrayAdapter<Integer>(daySpinner.getContext(), R.layout.spinner_item, dates_list);
+//                daySpinner.setAdapter(daySpinnerAdapter);
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
+//
+//        daySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                int selected_day=(Integer)adapterView.getItemAtPosition(i);
+////                newUser.setB_day(selected_day);
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//            }
+//        });
 
 
         registrationButton.setOnClickListener(new View.OnClickListener() //TODO: add new user to firebase after someone clicks on this
