@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">HMS</string>
+    <string name="title_activity_nav_bar">NavBar</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+
+    <string name="home_second">Home Second</string>
+    <string name="desc">Bacon ipsum dolor amet tenderloin ribeye beef ribs tail pork belly chicken andouille ground round pork chop salami sausage sirloin. Pancetta shankle porchetta ground round pork loin pastrami cupim tri-tip. Spare ribs chop sausage, t-bone bresaola burgdoggen meatball pig short ribs tail picanha chislic jowl prosciutto turducken. Bacon tail biltong, picanha shank short loin ham hock kielbasa strip steak burgdoggen doner jerky chuck.
+                        \n\n
+                        Doner bresaola filet mignon pancetta prosciutto sirloin. Hamburger venison burgdoggen brisket shankle shoulder leberkas, bacon pancetta pastrami pig drumstick ham jerky. Drumstick pig jowl ham short loin ball tip burgdoggen bresaola shank. Chislic prosciutto beef alcatra, ball tip turducken swine meatball venison buffalo strip steak sausage boudin. Burgdoggen pork loin beef cupim chislic.
+                        \n\n
+                        Venison hamburger bresaola salami, sausage andouille drumstick cupim alcatra. Shank strip steak rump, drumstick shankle meatball burgdoggen pancetta doner frankfurter chislic jerky chicken prosciutto andouille. Cupim swine salami tail short loin, bacon pork turducken alcatra picanha. Doner pork belly shoulder short loin hamburger flank ribeye turkey salami drumstick sausage tenderloin.
+                        \n\n
+                        Pastrami beef turducken beef ribs short loin, pig ham hock corned beef. Corned beef frankfurter leberkas filet mignon, doner meatball kevin. Burgdoggen pork belly salami pork loin brisket, ham hock turducken shankle short ribs meatloaf beef ribs capicola. Ribeye brisket beef sausage doner porchetta meatball pancetta. Ribeye sirloin short loin short ribs. Ball tip doner buffalo ground round sausage corned beef.
+                        \n\n
+                        Flank andouille pork chop, pastrami pork belly turducken rump meatball swine frankfurter hamburger ground round sirloin ham bacon. Alcatra beef ribs sirloin pork loin. Cow shoulder ham, chuck venison buffalo alcatra pancetta bacon spare ribs sausage pork loin pork pig. Shoulder ground round capicola tri-tip pork shankle hamburger andouille doner chuck venison short ribs meatball tail. Spare ribs filet mignon bresaola rump meatloaf, shank drumstick chuck jowl porchetta. Ham hock kevin swine ribeye chislic picanha hamburger. Bacon tongue prosciutto, kielbasa ham pancetta ball tip meatloaf spare ribs ground round pastrami.
+    </string>
+
+
+    <string name="navigation_drawer_view_open">Open Navigation Drawer</string>
+    <string name="navigation_drawer_view_close">Close Navigation Drawer</string>
+
+</resources>

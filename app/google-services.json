@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "743366395784",
+    "firebase_url": "https://hall-management-system-8.firebaseio.com",
+    "project_id": "hall-management-system-8",
+    "storage_bucket": "hall-management-system-8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:743366395784:android:251ad209c0b2fa1edadc3d",
+        "android_client_info": {
+          "package_name": "com.example.hms"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "743366395784-53hpr36sjb5j0kmjrsjj62gissq2hf7i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBO057U3fl_kCVTJoNiWG5OHyjpSDhVDLA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "743366395784-53hpr36sjb5j0kmjrsjj62gissq2hf7i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
