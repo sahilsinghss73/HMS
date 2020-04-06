@@ -2,15 +2,22 @@ package com.example.hms;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     private DrawerLayout drawer;
@@ -42,34 +49,47 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_home:
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new MessageFragment()).commit();
                 break;
-            case R.id.nav_contact:
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new ContactFragment()).commit();
+            case R.id.nav_lodge_new_complaint:
+                startActivity(new Intent(MainActivity.this,LaunchComplaintActivity.class));
+                break;
+            case R.id.nav_view_all_complaints:
+                startActivity(new Intent(MainActivity.this,ViewComplaintActivity.class));
+                break;
+            case R.id.nav_notice:
+
                 break;
 
             case R.id.nav_about:
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new AboutFragment()).commit();
                 break;
 
-            case R.id.nav_signin:
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new SigninFragment()).commit();
-                break;
-
-            case R.id.nav_register:
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new RegisterFragment()).commit();
+            case R.id.nav_signout:
+                FirebaseAuth.getInstance().signOut();
+                Toast.makeText(MainActivity.this, "Logout Successful", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MainActivity.this,LoginActivity.class));
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);
 
         return true;
     }
+    private static final int TIME_INTERVAL = 2000; // # milliseconds, desired time passed between two back presses.
+    private long mBackPressed;
 
     @Override
     public void onBackPressed() {
         if(drawer.isDrawerOpen(GravityCompat.START)){
             drawer.closeDrawer(GravityCompat.START);
         }
-        else {
+        if (mBackPressed + TIME_INTERVAL > System.currentTimeMillis())
+        {
+            FirebaseAuth.getInstance().signOut();
             super.onBackPressed();
+            return;
         }
+        else { Toast.makeText(getBaseContext(), "Tap back button in order to logout", Toast.LENGTH_SHORT).show(); }
+
+        mBackPressed = System.currentTimeMillis();
+
     }
 }

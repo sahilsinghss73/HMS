@@ -2,7 +2,9 @@ package com.example.hms;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -48,7 +50,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         // [END initialize_auth]
     }
 
-    private void createAccount(String email, String password)
+    public void createAccount(String email, String password)
     {
         if (!validateForm())
         {
@@ -86,7 +88,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 + "[0-9]{1,2}|25[0-5]|2[0-4][0-9])){1}|"
                 + "([a-zA-Z]+[\\w-]+\\.)+[a-zA-Z]{2,4})$").matcher(email).matches();
     }
-    private boolean validateForm()
+    public boolean validateForm()
     {
         boolean valid = true;
 
@@ -119,19 +121,26 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         return valid;
     }
-
+    public void launchRegistration(View view) {
+        startActivity(new Intent(LoginActivity.this,RegistrationActivity.class));
+        // Do something in response to button click
+    }
 
     @Override
     public void onClick(View v)
     {
         int i = v.getId();
-        if (i == R.id.new_user_register)
+        if(i==R.id.new_user_register)
         {
-            createAccount(mEmailField.getText().toString(), mPasswordField.getText().toString());
+            startActivity(new Intent(LoginActivity.this,RegistrationActivity.class));
         }
-        else if (i == R.id.login_button)
+        if (i == R.id.login_button)
         {
             signIn(mEmailField.getText().toString(), mPasswordField.getText().toString());
+        }
+        else if(i==R.id.forgot_password)
+        {
+            startActivity(new Intent(LoginActivity.this,ResetPasswordActivity.class));
         }
 //        else if (i == R.id.signOutButton)
 //        {
@@ -165,6 +174,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = mAuth.getCurrentUser();
                             Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                            mEmailField.getText().clear();
+                            mPasswordField.getText().clear();
                             //switch to next activity according ti the type of user
                         }
                         else
@@ -178,5 +190,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     }
                 });
         // [END sign_in_with_email]
+    }
+
+    private static final int TIME_INTERVAL = 2000; // # milliseconds, desired time passed between two back presses.
+    private long mBackPressed;
+
+    @Override
+    public void onBackPressed() {
+        if (mBackPressed + TIME_INTERVAL > System.currentTimeMillis())
+        {
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            return;
+        }
+        else { Toast.makeText(getBaseContext(), "Tap back button to exit the application", Toast.LENGTH_SHORT).show(); }
+
+        mBackPressed = System.currentTimeMillis();
+
     }
 }

@@ -544,68 +544,18 @@ android:layout_margin="0dp">
             android:textColor="#000000"
             android:textSize="16sp" />
         <EditText
-            android:id="@+id/Birthday"
+            android:focusable="false"
+
+            android:id="@+id/birthday"
+            android:inputType="date"
             android:clickable="true"
-            android:hint="DOB"/>-
-        <LinearLayout
-            android:id="@+id/drop_downs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
-            android:orientation="horizontal"
-
             android:layout_below="@id/dob_label"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true">
+            android:backgroundTint="#C63339"
 
-            <Spinner
+            />
 
-                android:id="@+id/dob_y_input"
-
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:layout_height="wrap_content"
-
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="0dp"
-                />
-            <!--android:layout_below="@id/dob_label"-->
-            <!--android:layout_alignParentStart="true"-->
-            <!--android:layout_alignParentLeft="true"-->
-
-
-            <Spinner
-
-                android:id="@+id/dob_m_input"
-
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:layout_height="wrap_content"
-
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="0dp"
-
-                />
-
-            <Spinner
-
-                android:id="@+id/dob_d_input"
-
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:layout_height="wrap_content"
-
-                android:layout_marginTop="10dp"
-
-                />
-            <!--android:layout_below="@id/dob_label"-->
-            <!--android:layout_toRightOf="@id/dob_y_input"-->
-            <!--android:layout_toEndOf="@id/dob_y_input"-->
-
-
-        </LinearLayout>
 
         <TextView
 
@@ -614,7 +564,7 @@ android:layout_margin="0dp">
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:layout_below="@id/drop_downs"
+            android:layout_below="@id/birthday"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
 
@@ -886,7 +836,7 @@ android:layout_margin="0dp">
             android:focusable="true"
 
             android:id="@+id/register_button_registration_activity"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
             android:layout_below="@id/dummy_input"
