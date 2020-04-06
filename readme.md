@@ -1,4 +1,4 @@
 Sign in with:
 
-user1@test.com
-password
+Email ID: user1@test.com
+Password: password
