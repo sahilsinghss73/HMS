@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ViewComplaintActivity" />
+
+        <activity android:name=".ViewComplaintActivity" >
+
+        </activity>
         <activity android:name=".LaunchComplaintActivity" />
         <activity android:name=".ResetPasswordActivity" />
         <activity android:name=".RegistrationActivity" />
@@ -23,6 +26,13 @@
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity android:name=".WardenActivity"
+            android:theme="@style/AppTheme.NoActionBar" >
+
+        </activity>
+
+
     </application>
 
 </manifest>

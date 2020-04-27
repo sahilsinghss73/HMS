@@ -9,52 +9,53 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ViewComplaintActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
-//    private ViewComplaintAdapter viewComplaintAdapter;
-
-//    Databasehelper DBHelper;
-    Bundle extras;
-//    User THIS_USER_OBJECT;
+    public RecyclerView recyclerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_complaint);
-//        DBHelper = new Databasehelper(this);
-        extras=getIntent().getExtras();
-//        THIS_USER_OBJECT=(User)extras.getSerializable("THIS_USER_OBJECT");
 
-
-//        recyclerView=(RecyclerView)findViewById(R.id.recyclerview);
+        recyclerView=(RecyclerView)findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-//        viewComplaintAdapter=new ViewComplaintAdapter(this, DBHelper.getAllComplaints(THIS_USER_OBJECT.getConstituency()), THIS_USER_OBJECT);
-//        recyclerView.setAdapter(viewComplaintAdapter);
-    }
-    protected void onStop()
-    {
-        super.onStop();
-        Log.e("HELLO", "HELLO");
-        Intent returnIntent=getIntent();
-//        returnIntent.putExtra("THIS_USER_OBJECT", THIS_USER_OBJECT);
-        setResult(RESULT_OK, returnIntent);
-        finish();
+        ArrayList<String> complaints=new ArrayList<String>(3);
+        complaints.add("First");
+        complaints.add("Second");
+        complaints.add("Third");
+        final ComplaintsRecyclerAdapter complaintsRecyclerAdapter=new ComplaintsRecyclerAdapter(this,complaints);
+
+        recyclerView.setAdapter(complaintsRecyclerAdapter);
+
 
     }
+//    protected void onStop()
+//    {
+//        super.onStop();
+////        Log.e("HELLO", "HELLO");
+////        Intent returnIntent=getIntent();
+////        returnIntent.putExtra("THIS_USER_OBJECT", THIS_USER_OBJECT);
+////        setResult(RESULT_OK, returnIntent);
+////        finish();
+//
+//    }
 
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-            case android.R.id.home:
-
-                Intent returnIntent=getIntent();
-//                returnIntent.putExtra("THIS_USER_OBJECT", THIS_USER_OBJECT);
-                setResult(RESULT_OK, returnIntent);
-                finish();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//
+//        switch (item.getItemId()) {
+//            case android.R.id.home:
+//
+//                Intent returnIntent=getIntent();
+////                returnIntent.putExtra("THIS_USER_OBJECT", THIS_USER_OBJECT);
+//                setResult(RESULT_OK, returnIntent);
+//                finish();
+//                return true;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 }

@@ -6,4 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".ViewComplaintActivity">
 
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:backgroundTint="#D3D3D3"
+        android:padding="24dp"
+        tools:listitem="@layout/item_complaint_list" />
 </androidx.constraintlayout.widget.ConstraintLayout>
