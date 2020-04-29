@@ -15,7 +15,7 @@ public final class HMSDataBaseContract {
         public static final String COLUMN_email_id="email_id";
         public static final String COLUMN_phone_num="phone_num";
         public static final String COLUMN_hall_code="hall_code";
-
+        public static final String COLUMN_type="type";
 
         public static final String SQL_CREATE_TABLE= "CREATE TABLE "+TABLE_name+" ("
                     +_ID +  " INTEGER PRIMARY KEY, "
@@ -25,7 +25,8 @@ public final class HMSDataBaseContract {
                     +COLUMN_email_id +" TEXT NOT NULL  , "
                     +COLUMN_phone_num +" TEXT  NOT NULL , "
                     +COLUMN_hall_code +" TEXT  NOT NULL , "
-                    +COLUMN_name +" TEXT NOT NULL  )";
+                    +COLUMN_name +" TEXT NOT NULL , "
+                    +COLUMN_type + " TEXT NOT NULL )";
     }
 
     public static final class Complaint_info_Entry implements BaseColumns
@@ -45,7 +46,7 @@ public final class HMSDataBaseContract {
                     +COLUMN_complaint_no + " TEXT NOT NULL, "
                     +COLUMN_category + " TEXT NOT NULL, "
                     +COLUMN_title + " TEXT NOT NULL, "
-                    +COLUMN_content + " TEXT NULL, "
+                    +COLUMN_content + " TEXT NOT NULL, "
                     +COLUMN_roll_no + " TEXT NOT NULL, "
                     +COLUMN_date + " TEXT NOT NULL, "
                     +COLUMN_hall_code + " TEXT NOT NULL)";
@@ -53,4 +54,22 @@ public final class HMSDataBaseContract {
     }
 
     //TODO: similar for Notice
+    public static final class Notice_info_Entry implements BaseColumns
+    {
+        public static final String TABLE_name="notice_info";
+        public static final String COLUMN_title="title";
+        public static final String COLUMN_content="content";
+        public static final String COLUMN_issuing_auth="issuing_auth";
+        public static final String COLUMN_date="date";
+        public static final String COLUMN_hall_code="hall_code";
+
+        public static final String SQL_CREATE_TABLE=
+                "CREATE TABLE "+TABLE_name+" ("
+                        +_ID + " INTEGER PRIMARY KEY, "
+                        +COLUMN_title + " TEXT NOT NULL, "
+                        +COLUMN_content + " TEXT NOT NULL, "
+                        +COLUMN_issuing_auth+" TEXT NOT NULL, "
+                        +COLUMN_date + " TEXT NOT NULL, "
+                        +COLUMN_hall_code + " TEXT NOT NULL)";
+    }
 }

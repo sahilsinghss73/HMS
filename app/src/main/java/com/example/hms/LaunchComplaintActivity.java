@@ -10,6 +10,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
@@ -22,6 +23,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.hms.HMSDataBaseContract.Complaint_info_Entry;
+import com.example.hms.HMSDataBaseContract.Student_info_Entry;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -77,15 +79,36 @@ public class LaunchComplaintActivity extends AppCompatActivity implements View.O
             }
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             String Email=user.getEmail();
-            //TODO query in the database for this email and extract rollNo & hallCode
+
+//            DataManager.loadFromDatabase(mDBOpenhelper);
+//            SQLiteDatabase db= mDBOpenhelper.getReadableDatabase();
+//
+//            final String[] studentColumns = {
+//                    Student_info_Entry.COLUMN_roll_no, Student_info_Entry.COLUMN
+//            };
+            String whereClause = " email_id = ? " ;
+            String[] whereArgs = new String[] {
+                    Email
+            };
+            DataManager.loadFromDatabase(mDBOpenhelper);
+            SQLiteDatabase db= mDBOpenhelper.getReadableDatabase();
+            Cursor cursor=db.query(Student_info_Entry.TABLE_name,null,whereClause,whereArgs,null,null,null);
+            String rollNum="";
+            String hallCode="";
+            if(cursor.moveToFirst()){
+                    rollNum = cursor.getString(cursor.getColumnIndex(Student_info_Entry.COLUMN_roll_no));
+                    hallCode = cursor.getString(cursor.getColumnIndex(Student_info_Entry.COLUMN_hall_code));
+            }
+            cursor.close();
+
             insertData("1",
                     category_spinner.getSelectedItem().toString(),
                     title_edittext.getText().toString(),
                     description_edittext.getText().toString(),
-                    "",
+                    rollNum,
                     new SimpleDateFormat("MM/dd/yy", Locale.getDefault()).format(new Date()),
-                    ""
-                    );//rollnum,date,hallcode
+                    hallCode
+                    );
 
             Context context = getApplicationContext();
             CharSequence text = "Complaint Lodged!";

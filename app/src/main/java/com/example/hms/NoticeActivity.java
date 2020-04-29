@@ -1,38 +1,32 @@
 package com.example.hms;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 
-import com.example.hms.HMSDataBaseContract.Complaint_info_Entry;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.util.ArrayList;
-import java.util.List;
+public class NoticeActivity extends AppCompatActivity {
 
-public class ViewComplaintActivity extends AppCompatActivity {
-
-    public RecyclerView recyclerView;
-    private HMSOpenHelper mDBOpenhelper;
     private ComplaintsRecyclerAdapter complaintsRecyclerAdapter;
+    private HMSOpenHelper mDBOpenhelper;
     String Email,hallCode;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_complaint);
+        setContentView(R.layout.activity_notice);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         mDBOpenhelper=new HMSOpenHelper(this);
-
         DataManager.loadFromDatabase(mDBOpenhelper);
-
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         Email=user.getEmail();
         String whereClause = " email_id = ? " ;
@@ -47,25 +41,22 @@ public class ViewComplaintActivity extends AppCompatActivity {
         }
 
         cursor.close();
-        recyclerView=(RecyclerView)findViewById(R.id.recycler_view);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
 
+        final RecyclerView recyclerNotes=(RecyclerView) findViewById(R.id.list_notes);
+        recyclerNotes.setHasFixedSize(true);
+        recyclerNotes.setLayoutManager(new LinearLayoutManager(this));
 
         complaintsRecyclerAdapter=new ComplaintsRecyclerAdapter(this,null);
 
-        recyclerView.setAdapter(complaintsRecyclerAdapter);
-
-
+        recyclerNotes.setAdapter(complaintsRecyclerAdapter);
     }
     @Override
     protected void onResume() {
         super.onResume();
         loadComplaints();
     }
-
     private void loadComplaints() {
         SQLiteDatabase db= mDBOpenhelper.getReadableDatabase();
 
@@ -73,12 +64,11 @@ public class ViewComplaintActivity extends AppCompatActivity {
         String[] whereArgs = new String[] {
                 hallCode
         };
-        Log.d("hallCode",hallCode);
-        final Cursor complaintCursor =db.query(Complaint_info_Entry.TABLE_name, null,whereClause,whereArgs,null,null,null);
+
+        final Cursor complaintCursor =db.query(HMSDataBaseContract.Notice_info_Entry.TABLE_name, null,whereClause,whereArgs,null,null,null);
 
         complaintsRecyclerAdapter.changeCursor(complaintCursor);
     }
-
     @Override
     protected void onDestroy() {
         mDBOpenhelper.close();

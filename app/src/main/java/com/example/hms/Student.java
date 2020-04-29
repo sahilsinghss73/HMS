@@ -9,8 +9,9 @@ public class Student {
     public String emailID;//
     public String phoneNo;//
     public String hallCode;
+    public String type;
 
-    public Student(String rollNo, String name, String branchCode, String dateOfBirth, String emailID, String phoneNo, String hallCode) {
+    public Student(String rollNo, String name, String branchCode, String dateOfBirth, String emailID, String phoneNo, String hallCode,String type) {
         this.rollNo = rollNo;
         this.name = name;
         this.branchCode = branchCode;
@@ -18,6 +19,7 @@ public class Student {
         this.emailID = emailID;
         this.phoneNo = phoneNo;
         this.hallCode = hallCode;
+        this.type = type;
     }
 
     public Student() {

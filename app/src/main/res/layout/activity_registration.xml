@@ -597,11 +597,22 @@ android:layout_margin="0dp">
                 android:checked="true"
 
                 />
-            <RadioButton android:id="@+id/radio_warden"
+
+
+            <RadioButton
+                android:id="@+id/radio_warden"
+                android:layout_width="0dp"
+                android:layout_height="20dp"
+                android:layout_weight="1"
+                android:buttonTint="#C63339"
+                android:text="Warden"
+
+                />
+            <RadioButton android:id="@+id/radio_hcm"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Warden"
+                android:text="HCM"
                 android:buttonTint="#C63339"
 
                 />

@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -46,7 +48,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
         mDBOpenhelper=new HMSOpenHelper(this);
-        SQLiteDatabase db= mDBOpenhelper.getReadableDatabase();
+
         //Views
         mEmailField=findViewById(R.id.input_email_id);
         mPasswordField=findViewById(R.id.input_password);
@@ -157,7 +159,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    private void signIn(String email, String password)
+    private void signIn(final String email, String password)
     {
         if (!validateForm()) {
             return;
@@ -175,7 +177,32 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = mAuth.getCurrentUser();
                             Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                            SQLiteDatabase db= mDBOpenhelper.getReadableDatabase();
+
+                            String whereClause = " email_id = ? " ;
+                            String[] whereArgs = new String[] {
+                                    email
+                            };
+
+                            final Cursor studentCursor =db.query(HMSDataBaseContract.Student_info_Entry.TABLE_name, null,whereClause,whereArgs,null,null,null);
+
+                            String type="";
+
+                            if(studentCursor.moveToFirst())
+                            {
+                                type=studentCursor.getString(studentCursor.getColumnIndex(HMSDataBaseContract.Student_info_Entry.COLUMN_type));
+                            }
+                            Log.d("type",type);
+                            Log.d("type",email);
+                            if(type.equals("B")) {
+                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                            }
+                            else if(type.equals("W")) {
+                                startActivity(new Intent(LoginActivity.this, WardenActivity.class));
+                            }
+                            else {
+//                                startActivity(new Intent(LoginActivity.this,HCMActivity.class));
+                            }
                             mEmailField.getText().clear();
                             mPasswordField.getText().clear();
                             //switch to next activity according ti the type of user
@@ -190,7 +217,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         }
                     }
                 });
-        // [END sign_in_with_email]
     }
 
     private static final int TIME_INTERVAL = 2000; // # milliseconds, desired time passed between two back presses.

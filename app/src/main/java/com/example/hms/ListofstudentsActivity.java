@@ -4,30 +4,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 
-import com.example.hms.HMSDataBaseContract.Complaint_info_Entry;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class ViewComplaintActivity extends AppCompatActivity {
+public class ListofstudentsActivity extends AppCompatActivity {
 
     public RecyclerView recyclerView;
     private HMSOpenHelper mDBOpenhelper;
-    private ComplaintsRecyclerAdapter complaintsRecyclerAdapter;
+    private StudentsRecyclerAdapter studentsRecyclerAdapter;
     String Email,hallCode;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_complaint);
+        setContentView(R.layout.activity_listofstudents);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mDBOpenhelper=new HMSOpenHelper(this);
 
@@ -35,6 +29,7 @@ public class ViewComplaintActivity extends AppCompatActivity {
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         Email=user.getEmail();
+
         String whereClause = " email_id = ? " ;
         String[] whereArgs = new String[] {
                 Email
@@ -47,36 +42,35 @@ public class ViewComplaintActivity extends AppCompatActivity {
         }
 
         cursor.close();
-        recyclerView=(RecyclerView)findViewById(R.id.recycler_view);
+
+        recyclerView=(RecyclerView)findViewById(R.id.los_recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
 
 
-        complaintsRecyclerAdapter=new ComplaintsRecyclerAdapter(this,null);
+        studentsRecyclerAdapter=new StudentsRecyclerAdapter(this,null);
 
-        recyclerView.setAdapter(complaintsRecyclerAdapter);
-
-
+        recyclerView.setAdapter(studentsRecyclerAdapter);
     }
     @Override
     protected void onResume() {
         super.onResume();
-        loadComplaints();
+        loadStudents();
     }
-
-    private void loadComplaints() {
+    private void loadStudents() {
         SQLiteDatabase db= mDBOpenhelper.getReadableDatabase();
 
-        String whereClause = " hall_code = ? " ;
+        String whereClause = " hall_code = ? and type = ?" ;
         String[] whereArgs = new String[] {
-                hallCode
+                hallCode,
+                "B"
         };
         Log.d("hallCode",hallCode);
-        final Cursor complaintCursor =db.query(Complaint_info_Entry.TABLE_name, null,whereClause,whereArgs,null,null,null);
+        final Cursor studentCursor =db.query(HMSDataBaseContract.Student_info_Entry.TABLE_name, null,whereClause,whereArgs,null,null,null);
 
-        complaintsRecyclerAdapter.changeCursor(complaintCursor);
+        studentsRecyclerAdapter.changeCursor(studentCursor);
     }
 
     @Override

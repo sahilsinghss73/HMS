@@ -4,6 +4,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.hms.HMSDataBaseContract.Complaint_info_Entry;
+import com.example.hms.HMSDataBaseContract.Notice_info_Entry;
 import com.example.hms.HMSDataBaseContract.Student_info_Entry;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ public class DataManager {
 
     public List<Student> mStudents = new ArrayList<>();
     public List<Complaint> mComplaints = new ArrayList<>();
+    public List<Notice> mNotices=new ArrayList<>();
 
     public static DataManager getInstance() {
 
@@ -33,7 +35,8 @@ public class DataManager {
                 Student_info_Entry.COLUMN_email_id,
                 Student_info_Entry.COLUMN_dob,
                 Student_info_Entry.COLUMN_phone_num,
-                Student_info_Entry.COLUMN_hall_code
+                Student_info_Entry.COLUMN_hall_code,
+                Student_info_Entry.COLUMN_type
         };
         final Cursor studentCursor = db.query(Student_info_Entry.TABLE_name, studentColumns, null, null, null, null, null);
 
@@ -48,6 +51,37 @@ public class DataManager {
         final Cursor complaintCursor =db.query(Complaint_info_Entry.TABLE_name, complaintColumns,null,null,null,null,null);
 
         loadComplaintsFromDatabase(complaintCursor);
+
+        final String[] noticeColumns = {
+                Notice_info_Entry.COLUMN_title,Notice_info_Entry.COLUMN_content,
+                Notice_info_Entry.COLUMN_issuing_auth,Notice_info_Entry.COLUMN_date,
+                Notice_info_Entry.COLUMN_hall_code
+        };
+        final Cursor noticeCursor=db.query(Notice_info_Entry.TABLE_name,noticeColumns,null,null,null,null,null);
+        loadNoticesFromDatabase(noticeCursor);
+    }
+
+    private static void loadNoticesFromDatabase(Cursor cursor) {
+        int titlePos=cursor.getColumnIndex(Notice_info_Entry.COLUMN_title);
+        int contentPos=cursor.getColumnIndex(Notice_info_Entry.COLUMN_content);
+        int issuingAuthPos=cursor.getColumnIndex(Notice_info_Entry.COLUMN_issuing_auth);
+        int datePos=cursor.getColumnIndex(Notice_info_Entry.COLUMN_date);
+        int hallPos=cursor.getColumnIndex(Notice_info_Entry.COLUMN_hall_code);
+
+        DataManager dm=getInstance();
+        dm.mNotices.clear();
+        while(cursor.moveToNext())  {
+
+            String title=cursor.getString(titlePos);
+            String content=cursor.getString(contentPos);
+            String issuing_auth=cursor.getString(issuingAuthPos);
+            String date=cursor.getString(datePos);
+            String hall=cursor.getString(hallPos);
+
+            Notice notice=new Notice(title,content,issuing_auth,date,hall);
+            dm.mNotices.add(notice);
+        }
+        cursor.close();
     }
 
     private static void loadComplaintsFromDatabase(Cursor cursor) {
@@ -85,7 +119,7 @@ public class DataManager {
         int dobPos=cursor.getColumnIndex(Student_info_Entry.COLUMN_dob);
         int phone_numPos=cursor.getColumnIndex(Student_info_Entry.COLUMN_phone_num);
         int hall_codePos=cursor.getColumnIndex(Student_info_Entry.COLUMN_hall_code);
-
+        int typePos=cursor.getColumnIndex(Student_info_Entry.COLUMN_type);
         DataManager dm = getInstance();
         dm.mStudents.clear();
         while(cursor.moveToNext())  {
@@ -97,8 +131,8 @@ public class DataManager {
             String emailID=cursor.getString(emailPos);
             String phoneNo=cursor.getString(phone_numPos);
             String hallCode=cursor.getString(hall_codePos);
-
-            Student student=new Student(rollNo,name,branchCode,dateOfBirth,emailID,phoneNo,hallCode);
+            String type=cursor.getString(typePos);
+            Student student=new Student(rollNo,name,branchCode,dateOfBirth,emailID,phoneNo,hallCode,type);
 
             dm.mStudents.add(student);
         }

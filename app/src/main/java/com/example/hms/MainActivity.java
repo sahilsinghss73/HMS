@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(new Intent(MainActivity.this,ViewComplaintActivity.class));
                 break;
             case R.id.nav_notice:
-
+                startActivity(new Intent(MainActivity.this,NoticeActivity.class));
                 break;
 
 

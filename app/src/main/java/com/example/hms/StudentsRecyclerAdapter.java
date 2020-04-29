@@ -10,16 +10,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class ComplaintsRecyclerAdapter extends RecyclerView.Adapter<ComplaintsRecyclerAdapter.ViewHolder>{
-
-    private final Context Context;
+public class StudentsRecyclerAdapter extends RecyclerView.Adapter<StudentsRecyclerAdapter.ViewHolder> {
+    private final android.content.Context Context;
     private final LayoutInflater layoutInflater;
     private Cursor mCursor;
 
-    private int mTitlePos;
-    private int mContentPos;
+    private int mNamePos;
+    private int mRollPos;
 
-    public ComplaintsRecyclerAdapter(Context mContext, Cursor cursor) {
+    public StudentsRecyclerAdapter(Context mContext, Cursor cursor) {
         this.Context = mContext;
         this.layoutInflater= LayoutInflater.from(mContext);
         this.mCursor=cursor;
@@ -31,8 +30,8 @@ public class ComplaintsRecyclerAdapter extends RecyclerView.Adapter<ComplaintsRe
         if(mCursor==null)
             return;
 
-        mContentPos=mCursor.getColumnIndex(HMSDataBaseContract.Complaint_info_Entry.COLUMN_content);
-        mTitlePos=mCursor.getColumnIndex(HMSDataBaseContract.Complaint_info_Entry.COLUMN_title);
+        mNamePos=mCursor.getColumnIndex(HMSDataBaseContract.Student_info_Entry.COLUMN_name);
+        mRollPos=mCursor.getColumnIndex(HMSDataBaseContract.Student_info_Entry.COLUMN_roll_no);
 
     }
 
@@ -48,19 +47,19 @@ public class ComplaintsRecyclerAdapter extends RecyclerView.Adapter<ComplaintsRe
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public StudentsRecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView=layoutInflater.inflate(R.layout.item_complaint_list,parent,false);
-        return new ViewHolder(itemView);
+        return new StudentsRecyclerAdapter.ViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull StudentsRecyclerAdapter.ViewHolder holder, int position) {
         mCursor.moveToPosition(position);
-        String content=mCursor.getString(mContentPos);
-        String Title=mCursor.getString(mTitlePos);
+        String roll=mCursor.getString(mRollPos);
+        String name=mCursor.getString(mNamePos);
 
-        holder.textContent.setText(content);
-        holder.textTitle.setText(Title);
+        holder.textContent.setText(roll);
+        holder.textTitle.setText(name);
     }
 
     @Override

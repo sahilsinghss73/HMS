@@ -9,6 +9,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -24,6 +25,7 @@ public class WardenActivity extends AppCompatActivity implements NavigationView.
         setContentView(R.layout.activity_warden);
 
 //        System.out.println();
+        Log.d("type","inside");
         navigationView = findViewById(R.id.warden_nav_view);
         Toolbar toolbar=findViewById(R.id.warden_toolbar);
         setSupportActionBar(toolbar);
@@ -47,16 +49,18 @@ public class WardenActivity extends AppCompatActivity implements NavigationView.
             case R.id.warden_nav_home:
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new MessageFragment()).commit();
                 break;
-            case R.id.nav_lodge_new_complaint:
-                startActivity(new Intent(WardenActivity.this,LaunchComplaintActivity.class));
+            case R.id.warden_nav_lodge_new_complaint:
+                startActivity(new Intent(WardenActivity.this,LaunchNoticeActivity.class));
                 break;
             case R.id.warden_nav_view_all_complaints:
                 startActivity(new Intent(WardenActivity.this,ViewComplaintActivity.class));
                 break;
             case R.id.warden_nav_notice:
-
+                startActivity(new Intent(WardenActivity.this,NoticeActivity.class));
                 break;
-
+            case R.id.warden_nav_contact:
+                startActivity(new Intent(WardenActivity.this,ListofstudentsActivity.class));
+                break;
 
 
             case R.id.warden_nav_signout:

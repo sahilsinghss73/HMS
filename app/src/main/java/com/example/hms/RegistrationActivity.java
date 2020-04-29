@@ -51,6 +51,8 @@ public class RegistrationActivity extends AppCompatActivity
     private EditText confirmpassword_edittext;
     private EditText rollnum_edittext;
     private EditText dob;
+
+    String type;
     //Spinners
 
     private Spinner hallOfResidenceSpinner;
@@ -122,11 +124,14 @@ public class RegistrationActivity extends AppCompatActivity
 
                 switch(radioGroup.getCheckedRadioButtonId())
                 {
-                    case R.id.radio_boarder:
-//                        newUser.setSex("Male");
-                        break;
                     case R.id.radio_warden:
-//                        newUser.setSex("Ot");
+                        type="W";
+                        break;
+                    case R.id.radio_hcm:
+                        type="H";
+                        break;
+                    default:
+                        type="B";
                         break;
 
                 }
@@ -191,7 +196,7 @@ public class RegistrationActivity extends AppCompatActivity
         Log.d("dob",Birthday);
 
 
-        insertData(roll,name,branch,Birthday,email,phone,hall);
+        insertData(roll,name,branch,Birthday,email,phone,hall,type);
 
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -261,7 +266,7 @@ public class RegistrationActivity extends AppCompatActivity
 
         return valid;
     }
-    public void insertData(String roll,String name,String branch,String date_of_birth,String email,String phone_num,String hall)
+    public void insertData(String roll,String name,String branch,String date_of_birth,String email,String phone_num,String hall,String type)
     {
         SQLiteDatabase db= mDBOpenhelper.getWritableDatabase();
 
@@ -273,9 +278,7 @@ public class RegistrationActivity extends AppCompatActivity
         contentValues.put(Student_info_Entry.COLUMN_email_id,email);
         contentValues.put(Student_info_Entry.COLUMN_phone_num,phone_num);
         contentValues.put(Student_info_Entry.COLUMN_hall_code,hall);
-
-        long id=db.insert(Student_info_Entry.TABLE_name,null,contentValues);
-
+        contentValues.put(Student_info_Entry.COLUMN_type,type);
+        db.insert(Student_info_Entry.TABLE_name,null,contentValues);
     }
-
 }

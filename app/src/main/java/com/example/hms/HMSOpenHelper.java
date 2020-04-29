@@ -18,6 +18,7 @@ public class HMSOpenHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(HMSDataBaseContract.Student_info_Entry.SQL_CREATE_TABLE);
         db.execSQL(HMSDataBaseContract.Complaint_info_Entry.SQL_CREATE_TABLE);
+        db.execSQL(HMSDataBaseContract.Notice_info_Entry.SQL_CREATE_TABLE);
     }
 
     @Override

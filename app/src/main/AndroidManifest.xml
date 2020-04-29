@@ -9,42 +9,43 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".ViewComplaintActivity" android:label="Complaints"
-            android:parentActivityName="com.example.hms.MainActivity">
-        </activity>
-
-        <activity android:name=".LaunchComplaintActivity" android:label="New Complaint"
-            android:parentActivityName="com.example.hms.MainActivity"
-            >
-        </activity>
-
-        <activity android:name=".ResetPasswordActivity" android:label="Reset Passcode"
-            android:parentActivityName="com.example.hms.LoginActivity">
-        </activity>
-
-        <activity android:name=".RegistrationActivity" android:label="Registration"
-            android:parentActivityName="com.example.hms.LoginActivity">
-        </activity>
-
-        <activity android:name=".LoginActivity" android:label="HMS">
-        </activity>
-
+        <activity android:name=".ListofstudentsActivity" android:label="Boarders List" android:parentActivityName=".WardenActivity"/>
+        <activity android:name=".LaunchNoticeActivity" android:label="New Notice" android:parentActivityName=".WardenActivity"/>
         <activity
-            android:name=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:name=".NoticeActivity"
+            android:label="NoticeBoard"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".ViewComplaintActivity"
+            android:label="Complaints"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".LaunchComplaintActivity"
+            android:label="New Complaint"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".ResetPasswordActivity"
+            android:label="Reset Passcode"
+            android:parentActivityName=".LoginActivity" />
+        <activity
+            android:name=".RegistrationActivity"
+            android:label="Registration"
+            android:parentActivityName=".LoginActivity"/>
+        <activity
+            android:name=".LoginActivity"
+            android:label="HMS">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".WardenActivity"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
-
-
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".WardenActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
