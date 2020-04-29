@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.hms.HMSDataBaseContract.Complaint_info_Entry;
 import com.google.firebase.auth.FirebaseAuth;
@@ -60,6 +61,7 @@ public class ViewComplaintActivity extends AppCompatActivity {
 
 
     }
+
     @Override
     protected void onResume() {
         super.onResume();

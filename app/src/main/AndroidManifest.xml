@@ -9,8 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ListofstudentsActivity" android:label="Boarders List" android:parentActivityName=".WardenActivity"/>
-        <activity android:name=".LaunchNoticeActivity" android:label="New Notice" android:parentActivityName=".WardenActivity"/>
+        <activity android:name=".ComplaintDetailsActivity"></activity>
+        <activity
+            android:name=".ListofstudentsActivity"
+            android:label="Boarders List"
+            android:parentActivityName=".WardenActivity" />
+        <activity
+            android:name=".LaunchNoticeActivity"
+            android:label="New Notice"
+            android:parentActivityName=".WardenActivity" />
         <activity
             android:name=".NoticeActivity"
             android:label="NoticeBoard"
@@ -30,7 +37,7 @@
         <activity
             android:name=".RegistrationActivity"
             android:label="Registration"
-            android:parentActivityName=".LoginActivity"/>
+            android:parentActivityName=".LoginActivity" />
         <activity
             android:name=".LoginActivity"
             android:label="HMS">

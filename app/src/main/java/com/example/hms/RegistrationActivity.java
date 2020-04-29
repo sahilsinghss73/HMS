@@ -67,6 +67,7 @@ public class RegistrationActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        type="B";
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

@@ -1,6 +1,7 @@
 package com.example.hms;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,8 @@ public class ComplaintsRecyclerAdapter extends RecyclerView.Adapter<ComplaintsRe
 
     private int mTitlePos;
     private int mContentPos;
+
+
 
     public ComplaintsRecyclerAdapter(Context mContext, Cursor cursor) {
         this.Context = mContext;
@@ -59,8 +62,10 @@ public class ComplaintsRecyclerAdapter extends RecyclerView.Adapter<ComplaintsRe
         String content=mCursor.getString(mContentPos);
         String Title=mCursor.getString(mTitlePos);
 
+
         holder.textContent.setText(content);
         holder.textTitle.setText(Title);
+        holder.mCurrentPosition=position;
     }
 
     @Override
@@ -72,14 +77,24 @@ public class ComplaintsRecyclerAdapter extends RecyclerView.Adapter<ComplaintsRe
 
         public final TextView textContent;
         public final TextView textTitle;
+        public int mCurrentPosition;
 
         public ViewHolder(View itemView){
             super(itemView);
             textContent= (TextView) itemView.findViewById(R.id.textView4);
             textTitle= (TextView) itemView.findViewById(R.id.textView3);
 
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent =new Intent(Context,ComplaintDetailsActivity.class);
+                    intent.putExtra("position",mCurrentPosition);
+                    Context.startActivity(intent);
+                }
+            });
 
         }
 
     }
+
 }
