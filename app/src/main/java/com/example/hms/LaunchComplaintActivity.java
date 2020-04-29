@@ -6,9 +6,11 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 
 import android.Manifest;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,7 +21,14 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.hms.HMSDataBaseContract.Complaint_info_Entry;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class LaunchComplaintActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -27,150 +36,87 @@ public class LaunchComplaintActivity extends AppCompatActivity implements View.O
     private EditText description_edittext;
     private Spinner category_spinner;
     private ArrayAdapter<String> category_spinner_adapter;
-//    private Complaint newComplaint;
-
-    private LinearLayout message;
-    private AlertDialog.Builder alert_builder;
-
-//    Databasehelper DBHelper;
-    Bundle extras;
-//    User THIS_USER_OBJECT;
-
-    private boolean title_ok;
-    private boolean description_ok;
+    public HMSOpenHelper mDBOpenhelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch_complaint);
-        ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},00);
         findViewById(R.id.register_complaint_button).setOnClickListener(this);
-//        DBHelper = new Databasehelper(this);
-        extras=getIntent().getExtras();
-//        THIS_USER_OBJECT=(User)extras.getSerializable("THIS_USER_OBJECT");
-        message=(LinearLayout)findViewById(R.id.message);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        mDBOpenhelper=new HMSOpenHelper(this);
         title_edittext=(EditText)findViewById(R.id.title_input);
         description_edittext=(EditText)findViewById(R.id.description_input);
 
         category_spinner=(Spinner)findViewById(R.id.category_input);
-        String domains[]={"Water", "Electricity", "Infrastructure", "Health"};
+        String domains[]={"Water", "Electricity", "Infrastructure", "Health", "Other"};
         category_spinner_adapter=new ArrayAdapter<String>(category_spinner.getContext(), R.layout.spinner_item, domains);
         category_spinner.setAdapter(category_spinner_adapter);
 
-
-//        newComplaint=new Complaint();
-//        newComplaint.setUser_name_launcher(THIS_USER_OBJECT.getUser_name());
-//        newComplaint.setConstituency(THIS_USER_OBJECT.getConstituency());
-
-
-        title_edittext.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-
-                if(!b)
-                {
-//                    newComplaint.setTitle(title_edittext.getText().toString());
-
-                    if(title_edittext.getText().toString().equals("")) {
-
-                        title_ok=false;
-                    }
-                    else {
-                        title_ok=true;
-                    }
-                }
-
-            }
-        });
-        description_edittext.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-
-                if(!b)
-                {
-//                    newComplaint.setDescription(description_edittext.getText().toString());
-
-                    if(description_edittext.getText().toString().equals("")) {
-
-                        description_ok=false;
-                    }
-                    else {
-                        description_ok=true;
-                    }
-                }
-
-            }
-        });
-
-        category_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                String domain=adapterView.getItemAtPosition(i).toString();
-//                newComplaint.setDomain(domain);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-
-
-
-
-
     }
-
-
-//    protected void onStop()
-//    {
-//        super.onStop();
-//        //Log.e("HELLO", "HELLO");
-//        Intent returnIntent=getIntent();
-//        returnIntent.putExtra("THIS_USER_OBJECT", THIS_USER_OBJECT);
-//        setResult(RESULT_OK, returnIntent);
-//        finish();
-//
-//    }
-//
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//
-//        switch (item.getItemId()) {
-//            case android.R.id.home:
-//
-//                Intent returnIntent=getIntent();
-//                returnIntent.putExtra("THIS_USER_OBJECT", THIS_USER_OBJECT);
-//                setResult(RESULT_OK, returnIntent);
-//                finish();
-//                return true;
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
 
     @Override
     public void onClick(View v)
     {
         int i = v.getId();
         if(i==R.id.register_complaint_button) {
+            String Title=title_edittext.getText().toString();
+            String content=description_edittext.getText().toString();
+
+            if(Title=="")
+            {
+                title_edittext.setError("Title required");
+                return;
+            }
+            if(content=="")
+            {
+                description_edittext.setError("Description required");
+                return;
+            }
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            String Email=user.getEmail();
+            //TODO query in the database for this email and extract rollNo & hallCode
+            insertData("1",
+                    category_spinner.getSelectedItem().toString(),
+                    title_edittext.getText().toString(),
+                    description_edittext.getText().toString(),
+                    "",
+                    new SimpleDateFormat("MM/dd/yy", Locale.getDefault()).format(new Date()),
+                    ""
+                    );//rollnum,date,hallcode
+
             Context context = getApplicationContext();
             CharSequence text = "Complaint Lodged!";
             int duration = Toast.LENGTH_SHORT;
             Toast toast = Toast.makeText(context, text, duration);
             toast.show();
             finish();
-            startActivity(new Intent(LaunchComplaintActivity.this,MainActivity.class));
+//            startActivity(new Intent(LaunchComplaintActivity.this,MainActivity.class));
         }
     }
     @Override
     public void onBackPressed()
     {
-
         finish();
-        startActivity(new Intent(LaunchComplaintActivity.this,MainActivity.class));
     }
 
+    public void insertData(String complaintNo,String category,String title,String content,String rollNo,String date,String hallCode)
+    {
+        SQLiteDatabase db= mDBOpenhelper.getWritableDatabase();
+
+        ContentValues contentValues=new ContentValues();
+        contentValues.put(Complaint_info_Entry.COLUMN_complaint_no,complaintNo);
+        contentValues.put(Complaint_info_Entry.COLUMN_category,category);
+        contentValues.put(Complaint_info_Entry.COLUMN_title,title);
+        contentValues.put(Complaint_info_Entry.COLUMN_content,content);
+        contentValues.put(Complaint_info_Entry.COLUMN_roll_no,rollNo);
+        contentValues.put(Complaint_info_Entry.COLUMN_date,date);
+        contentValues.put(Complaint_info_Entry.COLUMN_hall_code,hallCode);
+
+        long id=db.insert(HMSDataBaseContract.Complaint_info_Entry.TABLE_name,null,contentValues);
+
+    }
 
 }

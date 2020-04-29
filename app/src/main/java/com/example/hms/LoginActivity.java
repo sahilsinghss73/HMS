@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -19,11 +20,18 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.regex.Pattern;
 
+
+
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener
 {
     private EditText mEmailField;
     private EditText mPasswordField;
     private FirebaseAuth mAuth;
+
+    private HMSOpenHelper mDBOpenhelper;
+
+
+
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -36,6 +44,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         setContentView(R.layout.activity_login);
 
+
+        mDBOpenhelper=new HMSOpenHelper(this);
+        SQLiteDatabase db= mDBOpenhelper.getReadableDatabase();
         //Views
         mEmailField=findViewById(R.id.input_email_id);
         mPasswordField=findViewById(R.id.input_password);
@@ -44,10 +55,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         findViewById(R.id.new_user_register).setOnClickListener(this);
         findViewById(R.id.forgot_password).setOnClickListener(this);
 
-        // [START initialize_auth]
-        // Initialize Firebase Auth
+
         mAuth = FirebaseAuth.getInstance();
-        // [END initialize_auth]
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        mDBOpenhelper.close();
+        super.onDestroy();
     }
 
     public void createAccount(String email, String password)
@@ -66,18 +82,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     {
                         if (task.isSuccessful())
                         {
-                            // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = mAuth.getCurrentUser();
-//                            updateUI(user);
-                        } else {
+                        }
+                        else {
                             // If sign in fails, display a message to the user.
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-//                            updateUI(null);
                         }
                     }
                 });
-        // [END create_user_with_email]
     }
     private boolean isValidEmailId(String email){
 
@@ -142,18 +155,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         {
             startActivity(new Intent(LoginActivity.this,ResetPasswordActivity.class));
         }
-//        else if (i == R.id.signOutButton)
-//        {
-//            signOut();
-//        }
-//        else if (i == R.id.verifyEmailButton)
-//        {
-//            sendEmailVerification();
-//        }
-//        else if (i == R.id.reloadButton)
-//        {
-//            reload();
-//        }
     }
 
     private void signIn(String email, String password)

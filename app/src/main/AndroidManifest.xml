@@ -10,26 +10,38 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".ViewComplaintActivity" >
-
+        <activity android:name=".ViewComplaintActivity" android:label="Complaints"
+            android:parentActivityName="com.example.hms.MainActivity">
         </activity>
-        <activity android:name=".LaunchComplaintActivity" />
-        <activity android:name=".ResetPasswordActivity" />
-        <activity android:name=".RegistrationActivity" />
-        <activity android:name=".LoginActivity">
+
+        <activity android:name=".LaunchComplaintActivity" android:label="New Complaint"
+            android:parentActivityName="com.example.hms.MainActivity"
+            >
+        </activity>
+
+        <activity android:name=".ResetPasswordActivity" android:label="Reset Passcode"
+            android:parentActivityName="com.example.hms.LoginActivity">
+        </activity>
+
+        <activity android:name=".RegistrationActivity" android:label="Registration"
+            android:parentActivityName="com.example.hms.LoginActivity">
+        </activity>
+
+        <activity android:name=".LoginActivity" android:label="HMS">
+        </activity>
+
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
 
         <activity android:name=".WardenActivity"
             android:theme="@style/AppTheme.NoActionBar" >
-
         </activity>
 
 

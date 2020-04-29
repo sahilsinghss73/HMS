@@ -29,7 +29,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_reset_password);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         inputEmail = (EditText) findViewById(R.id.email_reset);
 
         btnReset = (Button) findViewById(R.id.reset_button);

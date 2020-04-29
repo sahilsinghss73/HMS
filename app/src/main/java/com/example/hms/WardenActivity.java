@@ -57,9 +57,7 @@ public class WardenActivity extends AppCompatActivity implements NavigationView.
 
                 break;
 
-            case R.id.warden_nav_about:
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new AboutFragment()).commit();
-                break;
+
 
             case R.id.warden_nav_signout:
                 FirebaseAuth.getInstance().signOut();

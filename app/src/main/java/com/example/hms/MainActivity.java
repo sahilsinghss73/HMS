@@ -60,9 +60,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 break;
 
-            case R.id.nav_about:
-                getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new AboutFragment()).commit();
-                break;
 
             case R.id.nav_signout:
                 FirebaseAuth.getInstance().signOut();
@@ -79,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onBackPressed() {
-        if(drawer.isDrawerOpen(GravityCompat.START)){
+        if(drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         }
         if (mBackPressed + TIME_INTERVAL > System.currentTimeMillis())

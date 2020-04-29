@@ -1,6 +1,7 @@
 package com.example.hms;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +17,37 @@ public class ComplaintsRecyclerAdapter extends RecyclerView.Adapter<ComplaintsRe
 
     private final Context Context;
     private final LayoutInflater layoutInflater;
-    private final ArrayList<String> complaints;
-    public ComplaintsRecyclerAdapter(Context mContext, ArrayList<String> complaints) {
+    private Cursor mCursor;
+
+    private int mTitlePos;
+    private int mContentPos;
+
+    public ComplaintsRecyclerAdapter(Context mContext, Cursor cursor) {
         this.Context = mContext;
         this.layoutInflater= LayoutInflater.from(mContext);
-        this.complaints = complaints;
+        this.mCursor=cursor;
+
+        populateColumnPositions();
     }
+
+    private void populateColumnPositions() {
+        if(mCursor==null)
+            return;
+
+        mContentPos=mCursor.getColumnIndex(HMSDataBaseContract.Complaint_info_Entry.COLUMN_content);
+        mTitlePos=mCursor.getColumnIndex(HMSDataBaseContract.Complaint_info_Entry.COLUMN_title);
+
+    }
+
+    public void changeCursor(Cursor cursor)
+    {
+        if(mCursor!=null)
+            mCursor.close();
+        mCursor=cursor;
+        populateColumnPositions();
+        notifyDataSetChanged();
+    }
+
 
     @NonNull
     @Override
@@ -32,24 +58,27 @@ public class ComplaintsRecyclerAdapter extends RecyclerView.Adapter<ComplaintsRe
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-//        char arr[]=complaints[position].toCharArray();
-        holder.textCourse.setText(complaints.get(position));
-        holder.textTitle.setText(complaints.get(position));
+        mCursor.moveToPosition(position);
+        String content=mCursor.getString(mContentPos);
+        String Title=mCursor.getString(mTitlePos);
+
+        holder.textContent.setText(content);
+        holder.textTitle.setText(Title);
     }
 
     @Override
     public int getItemCount() {
-        return complaints.size();
+        return mCursor==null ? 0 : mCursor.getCount();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        public final TextView textCourse;
+        public final TextView textContent;
         public final TextView textTitle;
 
         public ViewHolder(View itemView){
             super(itemView);
-            textCourse= (TextView) itemView.findViewById(R.id.textView4);
+            textContent= (TextView) itemView.findViewById(R.id.textView4);
             textTitle= (TextView) itemView.findViewById(R.id.textView3);
 
 

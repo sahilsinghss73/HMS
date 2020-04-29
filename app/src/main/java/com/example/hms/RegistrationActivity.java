@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -21,6 +23,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.hms.HMSDataBaseContract.Student_info_Entry;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -55,9 +58,7 @@ public class RegistrationActivity extends AppCompatActivity
     private EditText phoneNum_edittext;
     private RadioGroup categoryRadioGroup;
 
-    //Layouts
-    private LinearLayout temp_layout_1;
-    private LinearLayout temp_layout_2;
+    private HMSOpenHelper mDBOpenhelper;
 
 
     private FirebaseAuth mAuth;
@@ -66,7 +67,8 @@ public class RegistrationActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        mDBOpenhelper=new HMSOpenHelper(this);
         name_edittext=findViewById(R.id.name_input);
         email_edittext=findViewById(R.id.email_input);
         password_edittext=findViewById(R.id.password_input);
@@ -76,12 +78,11 @@ public class RegistrationActivity extends AppCompatActivity
         phoneNum_edittext=findViewById(R.id.phone_num_text_input);
         branchSpinner=findViewById(R.id.branch_list_input);
         hallOfResidenceSpinner=findViewById(R.id.hallofresidence_input);
-//TODO dob left
+        dob= (EditText) findViewById(R.id.birthday);
         registrationButton=findViewById(R.id.register_button_registration_activity);
 
         mAuth=FirebaseAuth.getInstance();
 
-        dob= (EditText) findViewById(R.id.birthday);
         final Calendar myCalendar = Calendar.getInstance();
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
             private void updateLabel() {
@@ -93,7 +94,6 @@ public class RegistrationActivity extends AppCompatActivity
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear,
                                   int dayOfMonth) {
-                // TODO Auto-generated method stub
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -102,29 +102,18 @@ public class RegistrationActivity extends AppCompatActivity
 
         };
 
+
+
+
         dob.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 new DatePickerDialog(RegistrationActivity.this, date, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
-
-
-//        phoneNum_edittext.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//            @Override
-//            public void onFocusChange(View view, boolean b) {
-//
-//                temp_layout_1=(LinearLayout)findViewById(R.id.constituency_not_verified);
-//                temp_layout_2=(LinearLayout)findViewById(R.id.constituency_verified);
-//
-//                temp_layout_1.setVisibility(View.VISIBLE);
-//                temp_layout_2.setVisibility(View.GONE);
-//            }
-//        });
 
         categoryRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -144,191 +133,81 @@ public class RegistrationActivity extends AppCompatActivity
             }
         });
 
-//        name_edittext.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//            @Override
-//            public void onFocusChange(View view, boolean b)
-//            {
-//
-//                String name=name_edittext.getText().toString();
-////                newUser.setName(name);
-//                temp_layout_1=(LinearLayout)findViewById(R.id.name_not_verified);
-//                temp_layout_2=(LinearLayout)findViewById(R.id.name_verified);
-//                if(name.equals("")==true)
-//                {
-//                    temp_layout_1.setVisibility(View.VISIBLE);
-//                    temp_layout_2.setVisibility(View.GONE);
-//
-//                }
-//                else
-//                {
-//                    temp_layout_1.setVisibility(View.GONE);
-//                    temp_layout_2.setVisibility(View.VISIBLE);
-//                }
-//            }
-//        });
-//
-//        password_edittext.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//            @Override
-//            public void onFocusChange(View view, boolean b) {
-//
-//                String password=password_edittext.getText().toString();
-////                newUser.setPassword(password);
-//                temp_layout_1=(LinearLayout)findViewById(R.id.password_not_verified);
-//                temp_layout_2=(LinearLayout)findViewById(R.id.password_verified);
-////                if(newUser.validatePassword())
-//                {
-//                    temp_layout_2.setVisibility(View.VISIBLE);
-//                    temp_layout_1.setVisibility(View.GONE);
-//
-//                }
-////                else//! a valid password
-//                {
-//
-//                    temp_layout_2.setVisibility(View.GONE);
-//                    temp_layout_1.setVisibility(View.VISIBLE);
-//
-//                }
-//
-//            }
-//        });
-//
-//        confirmpassword_edittext.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//            @Override
-//            public void onFocusChange(View view, boolean b) {
-//
-//                String password=confirmpassword_edittext.getText().toString();
-//
-//                temp_layout_1=(LinearLayout)findViewById(R.id.confirm_not_verified);
-//                temp_layout_2=(LinearLayout)findViewById(R.id.confirm_verified);
-////                if(newUser.validateConfirmPassword(password))
-//                {
-//                    temp_layout_2.setVisibility(View.VISIBLE);
-//                    temp_layout_1.setVisibility(View.GONE);
-//
-//                }
-////                else
-//                {
-//                    temp_layout_2.setVisibility(View.GONE);
-//                    temp_layout_1.setVisibility(View.VISIBLE);
-//                }
-//
-//            }
-//        });
-//
-//        email_edittext.setOnFocusChangeListener(new View.OnFocusChangeListener()
-//        {
-//            @Override
-//            public void onFocusChange(View view, boolean b) {
-//
-//                String email=email_edittext.getText().toString();
-////                newUser.setUser_name(email);
-//                temp_layout_1=(LinearLayout)findViewById(R.id.email_not_verified);
-//                temp_layout_2=(LinearLayout)findViewById(R.id.email_verified);
-////                if(newUser.validateEmail())
-//                {
-//// TODO                   if(DBHelper.checkIfPresent(email))
-//                    {
-//                        TextView message=findViewById(R.id.email_not_verified_message);
-//                        message.setText("Already Registered!");
-//
-//                        temp_layout_2.setVisibility(View.GONE);
-//                        temp_layout_1.setVisibility(View.VISIBLE);
-//
-//                    }
-////                    else
-//                    {
-//
-//                        temp_layout_2.setVisibility(View.VISIBLE);
-//                        temp_layout_1.setVisibility(View.GONE);
-//                    }
-//
-//                }
-////                else
-//                {
-//                    TextView message=findViewById(R.id.email_not_verified_message);
-//                    message.setText("Invalid Email!");
-//
-//                    temp_layout_2.setVisibility(View.GONE);
-//                    temp_layout_1.setVisibility(View.VISIBLE);
-//
-//                }
-//
-//            }
-//        });
-//
-//        rollnum_edittext.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//            @Override
-//            public void onFocusChange(View view, boolean b) {
-//
-//                String rollnum=rollnum_edittext.getText().toString();
-////                newUser.setVoterID(voterid);
-//                temp_layout_1=(LinearLayout)findViewById(R.id.voterid_not_verified);
-//                temp_layout_2=(LinearLayout)findViewById(R.id.voterid_verified);
-//                if(!rollnum.equals(""))
-//                {
-//                    temp_layout_2.setVisibility(View.VISIBLE);
-//                    temp_layout_1.setVisibility(View.GONE);
-//
-//                }
-//                else
-//                {
-//                    temp_layout_2.setVisibility(View.GONE);
-//                    temp_layout_1.setVisibility(View.VISIBLE);
-//                }
-//
-//            }
-//        });
 
-
-
-        registrationButton.setOnClickListener(new View.OnClickListener() //TODO: add new user to firebase after someone clicks on this
+        registrationButton.setOnClickListener(new View.OnClickListener() //add new user to firebase after someone clicks on this
         {
             @Override
             public void onClick(View view)
             {
+                Log.d("register","button clicked");
+                if(!createAccount(email_edittext.getText().toString(), password_edittext.getText().toString()))
+                    return;
+                Log.d("123","2341");
                 Context context=getApplicationContext();
                 CharSequence text = "Successfully registered";
                 int duration = Toast.LENGTH_LONG;
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
-                createAccount(email_edittext.getText().toString(), password_edittext.getText().toString());
                 finish();
             }
         });
 
 
+
+        String dept[]={"CSE", "ECE", "EE", "ME","CH","IM","MA"};
+        ArrayAdapter<String> dept_spinner_adapter=new ArrayAdapter<String>(branchSpinner.getContext(), R.layout.spinner_item, dept);
+        branchSpinner.setAdapter(dept_spinner_adapter);
+
+        String Halls[]={"AZD", "VS", "LBS", "RP","RK"};
+        ArrayAdapter<String> hall_spinner_adapter=new ArrayAdapter<String>(hallOfResidenceSpinner.getContext(), R.layout.spinner_item, Halls);
+        hallOfResidenceSpinner.setAdapter(hall_spinner_adapter);
+
+
+
     }//Oncreate ends here
-    public void createAccount(String email, String password)
+
+    public boolean createAccount(String email, String password)
     {
         if (!validateForm())
         {
-            return;
+            return false;
         }
-        Log.d("email",email);
-        Log.d("password",password);
 
-        // [START create_user_with_email]
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+
+        String name=name_edittext.getText().toString();
+        String roll=rollnum_edittext.getText().toString();
+        String branch=branchSpinner.getSelectedItem().toString();
+        String hall=hallOfResidenceSpinner.getSelectedItem().toString();
+        String phone=phoneNum_edittext.getText().toString();
+        String Birthday=dob.getText().toString();
+
+
+        Log.d("name",name);
+        Log.d("email",email);
+        Log.d("roll",roll);
+        Log.d("branch",branch);
+        Log.d("hall",hall);
+        Log.d("phone",phone);
+        Log.d("dob",Birthday);
+
+
+        insertData(roll,name,branch,Birthday,email,phone,hall);
+
+        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task)
                     {
                         if (task.isSuccessful())
                         {
-                            // Sign in success, update UI with the signed-in user's information
+
                             Toast.makeText(RegistrationActivity.this, "Authentication Successful.",
                                     Toast.LENGTH_LONG).show();
                             FirebaseUser user = mAuth.getCurrentUser();
-//                            updateUI(user);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Toast.makeText(RegistrationActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-//                            updateUI(null);
+
                         }
                     }
                 });
-        // [END create_user_with_email]
+        return true;
     }
     private boolean isValidEmailId(String email){
 
@@ -360,6 +239,16 @@ public class RegistrationActivity extends AppCompatActivity
         }
 
         String password = password_edittext.getText().toString();
+        String confirm_password=confirmpassword_edittext.getText().toString();
+        if(!password.equals(confirm_password))
+        {
+            password_edittext.setError("Passwords don't match");
+            valid=false;
+        }
+        else
+            password_edittext.setError(null);
+
+
         if (TextUtils.isEmpty(password))
         {
             password_edittext.setError("Required.");
@@ -372,6 +261,21 @@ public class RegistrationActivity extends AppCompatActivity
 
         return valid;
     }
+    public void insertData(String roll,String name,String branch,String date_of_birth,String email,String phone_num,String hall)
+    {
+        SQLiteDatabase db= mDBOpenhelper.getWritableDatabase();
 
+        ContentValues contentValues=new ContentValues();
+        contentValues.put(Student_info_Entry.COLUMN_roll_no,roll);
+        contentValues.put(Student_info_Entry.COLUMN_name,name);
+        contentValues.put(Student_info_Entry.COLUMN_branch_code,branch);
+        contentValues.put(Student_info_Entry.COLUMN_dob,date_of_birth);
+        contentValues.put(Student_info_Entry.COLUMN_email_id,email);
+        contentValues.put(Student_info_Entry.COLUMN_phone_num,phone_num);
+        contentValues.put(Student_info_Entry.COLUMN_hall_code,hall);
+
+        long id=db.insert(Student_info_Entry.TABLE_name,null,contentValues);
+
+    }
 
 }
