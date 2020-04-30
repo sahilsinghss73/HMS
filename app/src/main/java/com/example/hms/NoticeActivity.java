@@ -15,7 +15,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class NoticeActivity extends AppCompatActivity {
 
-    private ComplaintsRecyclerAdapter complaintsRecyclerAdapter;
+    private NoticeRecyclerAdapter noticeRecyclerAdapter;
     private HMSOpenHelper mDBOpenhelper;
     String Email,hallCode;
     @Override
@@ -45,18 +45,18 @@ public class NoticeActivity extends AppCompatActivity {
 
         final RecyclerView recyclerNotes=(RecyclerView) findViewById(R.id.list_notes);
         recyclerNotes.setHasFixedSize(true);
-        recyclerNotes.setLayoutManager(new LinearLayoutManager(this));
+        recyclerNotes.setLayoutManager(new GridLayoutManager(this,2));
 
-        complaintsRecyclerAdapter=new ComplaintsRecyclerAdapter(this,null);
+        noticeRecyclerAdapter=new NoticeRecyclerAdapter(this,null);
 
-        recyclerNotes.setAdapter(complaintsRecyclerAdapter);
+        recyclerNotes.setAdapter(noticeRecyclerAdapter);
     }
     @Override
     protected void onResume() {
         super.onResume();
-        loadComplaints();
+        loadNotice();
     }
-    private void loadComplaints() {
+    private void loadNotice() {
         SQLiteDatabase db= mDBOpenhelper.getReadableDatabase();
 
         String whereClause = " hall_code = ? " ;
@@ -64,9 +64,9 @@ public class NoticeActivity extends AppCompatActivity {
                 hallCode
         };
 
-        final Cursor complaintCursor =db.query(HMSDataBaseContract.Notice_info_Entry.TABLE_name, null,whereClause,whereArgs,null,null,null);
+        final Cursor noticeCursor =db.query(HMSDataBaseContract.Notice_info_Entry.TABLE_name, null,whereClause,whereArgs,null,null,null);
 
-        complaintsRecyclerAdapter.changeCursor(complaintCursor);
+        noticeRecyclerAdapter.changeCursor(noticeCursor);
     }
     @Override
     protected void onDestroy() {

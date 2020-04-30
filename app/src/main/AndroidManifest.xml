@@ -9,28 +9,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ComplaintDetailsActivity"/>
 
+        <activity android:name=".NoticeDetailsActivity" />
+        <activity android:name=".ComplaintDetailsActivity" />
         <activity
             android:name=".ListofstudentsActivity"
-            android:label="Boarders List"
-            android:parentActivityName=".WardenActivity" />
+            android:label="Boarders List" />
         <activity
             android:name=".LaunchNoticeActivity"
-            android:label="New Notice"
-            android:parentActivityName=".WardenActivity" />
+            android:label="New Notice" />
         <activity
             android:name=".NoticeActivity"
-            android:label="NoticeBoard"
-             />
+            android:label="NoticeBoard" />
         <activity
             android:name=".ViewComplaintActivity"
-            android:label="Complaints"
-             />
+            android:label="Complaints" />
         <activity
             android:name=".LaunchComplaintActivity"
-            android:label="New Complaint"
-            android:parentActivityName=".MainActivity" />
+            android:label="New Complaint" />
         <activity
             android:name=".ResetPasswordActivity"
             android:label="Reset Passcode"
@@ -53,6 +49,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".WardenActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".HCMActivity"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 

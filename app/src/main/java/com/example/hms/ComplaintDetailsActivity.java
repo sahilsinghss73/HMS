@@ -123,7 +123,7 @@ public class ComplaintDetailsActivity extends AppCompatActivity {
            public void onClick(View v) {
                //TODO delete complaint
                db1.delete(Complaint_info_Entry.TABLE_name, BaseColumns._ID + " = ? ", new String[]{id});
-                                       Toast.makeText(ViewComplaintActivity.this, "Complaint Acknowledged",
+                                       Toast.makeText(ComplaintDetailsActivity.this, "Complaint Acknowledged",
                                                Toast.LENGTH_LONG).show();
                finish();
            }
