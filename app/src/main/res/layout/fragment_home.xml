@@ -33,16 +33,7 @@
         android:textColor="#fff"
         android:textSize="15dp" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/news_btn"
-        android:background="#4169E1"
-        android:text="News"
-        android:textColor="#fff"
-        android:layout_below="@id/iit"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="40dp"/>
+
 
     <ScrollView
         android:layout_width="match_parent"
@@ -71,7 +62,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="16dp"
-                android:text="@string/desc" />
+                android:text="Welcome to the Hostel-Management-System.\nHostel Management System is an application software which aims at the computerization of hostel management thereby letting the complete process of complaint reddressal and its management on a computer.\n\nWithout computers, everything goes on registers causing a lot of paper work with very less efficiency, which is where this software can dramatically improve the overall management.\n\nOur purpose in developing this application was to provide a very simple interface that will be easy to navigate and operate along with proper record keeping and reporting." />
         </LinearLayout>
     </ScrollView>
 

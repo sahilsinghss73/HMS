@@ -440,9 +440,10 @@ android:layout_margin="0dp">
             android:layout_marginTop="20dp"
             android:paddingStart="4dp"
 
-            android:text="Roll Number"
+            android:text="Roll No/Employee ID"
             android:textColor="#000000"
             android:textSize="16sp" />
+
 
         <EditText
             android:focusableInTouchMode="true"
@@ -644,7 +645,7 @@ android:layout_margin="0dp">
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
 
-                android:text="Hall Of Residence"
+                android:text="Hall"
                 android:textColor="#000000"
                 android:textSize="16sp"
 
@@ -681,11 +682,11 @@ android:layout_margin="0dp">
             <TextView
                 android:id="@+id/branch_list_label"
 
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
 
-                android:text="Branch"
+                android:text="Department"
                 android:textColor="#000000"
                 android:textSize="16sp"
 
@@ -694,7 +695,7 @@ android:layout_margin="0dp">
             <Spinner
                 android:id="@+id/branch_list_input"
 
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"/>
 
