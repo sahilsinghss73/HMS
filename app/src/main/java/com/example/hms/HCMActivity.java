@@ -49,8 +49,11 @@ public class HCMActivity extends AppCompatActivity implements NavigationView.OnN
             case R.id.hcm_nav_home:
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new MessageFragment()).commit();
                 break;
-            case R.id.hcm_nav_lodge_new_complaint:
+            case R.id.hcm_nav_lodge_new_notice:
                 startActivity(new Intent(HCMActivity.this,LaunchNoticeActivity.class));
+                break;
+            case R.id.hcm_nav_lodge_new_complaint:
+                startActivity(new Intent(HCMActivity.this,LaunchComplaintActivity.class));
                 break;
             case R.id.hcm_nav_view_all_complaints:
                 startActivity(new Intent(HCMActivity.this,ViewComplaintActivity.class));

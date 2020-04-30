@@ -9,9 +9,13 @@
             android:icon="@drawable/ic_hms"
             android:title="@string/menu_home" />
         <item
+            android:id="@+id/hcm_nav_lodge_new_notice"
+            android:icon="@drawable/notice1"
+            android:title="New Notice" />
+        <item
             android:id="@+id/hcm_nav_lodge_new_complaint"
             android:icon="@drawable/ic_add_circle_1"
-            android:title="New Notice" />
+            android:title="New Complaint" />
         <item
             android:id="@+id/hcm_nav_view_all_complaints"
             android:icon="@drawable/ic_places_colosseum"

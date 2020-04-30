@@ -54,7 +54,7 @@ public class LaunchComplaintActivity extends AppCompatActivity implements View.O
         description_edittext=(EditText)findViewById(R.id.description_input);
 
         category_spinner=(Spinner)findViewById(R.id.category_input);
-        String domains[]={"Water", "Electricity", "Infrastructure", "Health", "Other"};
+        String domains[]={"Water", "Electricity", "Infrastructure", "Health", "Mess","Other"};
         category_spinner_adapter=new ArrayAdapter<String>(category_spinner.getContext(), R.layout.spinner_item, domains);
         category_spinner.setAdapter(category_spinner_adapter);
 
