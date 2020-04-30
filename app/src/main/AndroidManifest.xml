@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ComplaintDetailsActivity"></activity>
+        <activity android:name=".ComplaintDetailsActivity"/>
+
         <activity
             android:name=".ListofstudentsActivity"
             android:label="Boarders List"
@@ -21,11 +22,11 @@
         <activity
             android:name=".NoticeActivity"
             android:label="NoticeBoard"
-            android:parentActivityName=".MainActivity" />
+             />
         <activity
             android:name=".ViewComplaintActivity"
             android:label="Complaints"
-            android:parentActivityName=".MainActivity" />
+             />
         <activity
             android:name=".LaunchComplaintActivity"
             android:label="New Complaint"

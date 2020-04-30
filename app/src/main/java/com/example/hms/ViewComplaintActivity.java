@@ -29,7 +29,6 @@ public class ViewComplaintActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_complaint);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mDBOpenhelper=new HMSOpenHelper(this);
 
         DataManager.loadFromDatabase(mDBOpenhelper);

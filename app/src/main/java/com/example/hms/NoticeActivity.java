@@ -23,7 +23,6 @@ public class NoticeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notice);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mDBOpenhelper=new HMSOpenHelper(this);
         DataManager.loadFromDatabase(mDBOpenhelper);
