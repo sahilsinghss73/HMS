@@ -31,7 +31,10 @@ public class LaunchNoticeActivity extends AppCompatActivity implements View.OnCl
         setContentView(R.layout.activity_launch_notice);
 
         findViewById(R.id.notice_register_complaint_button).setOnClickListener(this);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        assert getSupportActionBar() != null;   //null check
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);   //show back button
+
         mDBOpenhelper=new HMSOpenHelper(this);
         title_edittext=(EditText)findViewById(R.id.notice_title_input);
         description_edittext=(EditText)findViewById(R.id.notice_description_input);
@@ -111,4 +114,10 @@ public class LaunchNoticeActivity extends AppCompatActivity implements View.OnCl
 
         db.insert(HMSDataBaseContract.Notice_info_Entry.TABLE_name,null,contentValues);
     }
+    @Override
+    public boolean onSupportNavigateUp(){
+        finish();
+        return true;
+    }
+
 }

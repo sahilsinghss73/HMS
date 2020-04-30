@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/hcm_nav_home"
+            android:icon="@drawable/ic_hms"
+            android:title="@string/menu_home" />
+        <item
+            android:id="@+id/hcm_nav_lodge_new_complaint"
+            android:icon="@drawable/ic_add_circle_1"
+            android:title="New Notice" />
+        <item
+            android:id="@+id/hcm_nav_view_all_complaints"
+            android:icon="@drawable/ic_places_colosseum"
+            android:title="All Complaints" />
+        <item
+            android:id="@+id/hcm_nav_notice"
+            android:icon="@drawable/notice_board_icon"
+            android:title="Noticeboard" />
+        <item
+            android:id="@+id/hcm_nav_contact"
+            android:icon="@drawable/list_icon"
+            android:title="List of Students" />
+        <item
+            android:id="@+id/hcm_nav_about"
+            android:icon="@drawable/ic_about"
+            android:title="About" />
+        <item
+            android:id="@+id/hcm_nav_signout"
+            android:icon="@drawable/ic_navigation_before_1"
+            android:title="Log out" />
+    </group>
+</menu>

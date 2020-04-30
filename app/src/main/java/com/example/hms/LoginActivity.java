@@ -201,7 +201,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 startActivity(new Intent(LoginActivity.this, WardenActivity.class));
                             }
                             else {
-//                                startActivity(new Intent(LoginActivity.this,HCMActivity.class));
+                                startActivity(new Intent(LoginActivity.this,HCMActivity.class));
                             }
                             mEmailField.getText().clear();
                             mPasswordField.getText().clear();

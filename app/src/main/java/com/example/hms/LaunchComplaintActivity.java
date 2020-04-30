@@ -46,7 +46,8 @@ public class LaunchComplaintActivity extends AppCompatActivity implements View.O
         setContentView(R.layout.activity_launch_complaint);
         findViewById(R.id.register_complaint_button).setOnClickListener(this);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        assert getSupportActionBar() != null;   //null check
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);   //show back button
 
         mDBOpenhelper=new HMSOpenHelper(this);
         title_edittext=(EditText)findViewById(R.id.title_input);
@@ -140,6 +141,11 @@ public class LaunchComplaintActivity extends AppCompatActivity implements View.O
 
         long id=db.insert(HMSDataBaseContract.Complaint_info_Entry.TABLE_name,null,contentValues);
 
+    }
+    @Override
+    public boolean onSupportNavigateUp(){
+        finish();
+        return true;
     }
 
 }

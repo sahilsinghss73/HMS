@@ -24,6 +24,9 @@ public class NoticeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_notice);
 
 
+        assert getSupportActionBar() != null;   //null check
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);   //show back button
+
         mDBOpenhelper=new HMSOpenHelper(this);
         DataManager.loadFromDatabase(mDBOpenhelper);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -72,5 +75,10 @@ public class NoticeActivity extends AppCompatActivity {
     protected void onDestroy() {
         mDBOpenhelper.close();
         super.onDestroy();
+    }
+    @Override
+    public boolean onSupportNavigateUp(){
+        finish();
+        return true;
     }
 }

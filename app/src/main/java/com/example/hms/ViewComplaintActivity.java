@@ -31,6 +31,10 @@ public class ViewComplaintActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_complaint);
         mDBOpenhelper=new HMSOpenHelper(this);
 
+
+        assert getSupportActionBar() != null;   //null check
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);   //show back button
+
         DataManager.loadFromDatabase(mDBOpenhelper);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -85,4 +89,10 @@ public class ViewComplaintActivity extends AppCompatActivity {
         mDBOpenhelper.close();
         super.onDestroy();
     }
+    @Override
+    public boolean onSupportNavigateUp(){
+        finish();
+        return true;
+    }
+
 }

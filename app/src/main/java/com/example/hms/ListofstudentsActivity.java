@@ -22,7 +22,10 @@ public class ListofstudentsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listofstudents);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        assert getSupportActionBar() != null;   //null check
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);   //show back button
+
         mDBOpenhelper=new HMSOpenHelper(this);
 
         DataManager.loadFromDatabase(mDBOpenhelper);
@@ -62,10 +65,11 @@ public class ListofstudentsActivity extends AppCompatActivity {
     private void loadStudents() {
         SQLiteDatabase db= mDBOpenhelper.getReadableDatabase();
 
-        String whereClause = " hall_code = ? and type = ?" ;
+        String whereClause = " hall_code = ? and (type = ? or type = ? ) " ;
         String[] whereArgs = new String[] {
                 hallCode,
-                "B"
+                "B",
+                "H"
         };
         Log.d("hallCode",hallCode);
         final Cursor studentCursor =db.query(HMSDataBaseContract.Student_info_Entry.TABLE_name, null,whereClause,whereArgs,null,null,null);
@@ -78,4 +82,11 @@ public class ListofstudentsActivity extends AppCompatActivity {
         mDBOpenhelper.close();
         super.onDestroy();
     }
+
+    @Override
+    public boolean onSupportNavigateUp(){
+        finish();
+        return true;
+    }
+
 }
